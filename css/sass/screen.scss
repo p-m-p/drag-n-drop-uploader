@@ -6,6 +6,7 @@ article {
 
 #file-uploads {
   height: 400px;
+  overflow: auto;
   border: solid 1px silver;
 
   li {

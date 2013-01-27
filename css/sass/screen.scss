@@ -1,0 +1,32 @@
+article {
+  max-width: 600px;
+  min-width: 320px;
+  margin: 0 auto;
+}
+
+#file-uploads {
+  height: 400px;
+  border: solid 1px silver;
+
+  li {
+    border-bottom: solid 1px silver; 
+    position: relative;
+    padding: 10px;
+    min-height: 40px;
+  }
+}
+
+.details {
+  margin-left: 60px;
+}
+
+.preview {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+
+  img {
+    width: 40px;
+    height: 40px;
+  }
+}

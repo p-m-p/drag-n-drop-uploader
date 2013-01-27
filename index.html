@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width">
+
+  <title>Drag and Drop Image uploader</title>
+
+  <link rel="stylesheet" href="css/screen.css">
+</head>
+<body>
+  <article>
+    <h1>Drag and drop image uploader</h1>  
+    <p>Choose some files to upload or simply drop them below to start uploading</p>
+
+    <section>
+      <input type="file" name="file-picker" multiple>
+      <button>Clear all uploads</button>
+
+      <ul id="file-uploads">
+        <!-- Uploads are added dynamically --> 
+      </ul>
+    </section>
+  </article>
+
+  <script type="text/template" id="upload-template">
+    <div class="details">
+      <h3><%- name %></h3>
+      <span>Size: <%- size %></span> | 
+      <a href="#" class="remove">Remove</a>
+    </div>
+    <div class="preview">
+      <img src="<%= dataURL %>" alt="Preview of <%- name %>">
+    </div>
+  </script>
+  <script src="js/vendor/lodash.min.js"></script>
+  <script src="js/uploader.js"></script>
+</body>
+</html>

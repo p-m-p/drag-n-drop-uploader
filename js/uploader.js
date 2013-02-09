@@ -200,7 +200,7 @@
       // percentage of the file that has uploaded
       li = this._file_upload.listItem;
       pctLoaded = ((ev.loaded / ev.total) * 100);
-      li.querySelector('.progress').style.width = pctLoaded + '%'
+      li.querySelector('.progress').style.width = pctLoaded + '%';
     }
   };
 
@@ -214,7 +214,7 @@
       up.activeUploads.push(next);
       up.startUpload(next);
     }
-  }
+  };
 
   // Remove and return the upload with the matching id from the list of
   // active uploads. If it does not exist undefined is returned

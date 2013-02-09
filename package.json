@@ -1,0 +1,23 @@
+{
+  "name": "drag-n-drop-uploader",
+  "version": "0.0.1",
+  "description": "A HTML5 demonstration drag n drop image upload application",
+  "main": "index.html",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/p-m-p/drag-n-drop-uploader.git"
+  },
+  "keywords": [
+    "html5",
+    "dragndrop"
+  ],
+  "author": "Phil Parsons",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "~0.4.0rc7",
+    "grunt-contrib-jshint": "~0.1.0"
+  }
+}

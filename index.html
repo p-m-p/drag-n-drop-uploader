@@ -24,7 +24,7 @@
     </section>
   </article>
 
-  <script type="text/template" id="upload-template">
+  <script type="text/template" id="upload-tmpl">
     <div class="details">
       <h3><%- name %></h3>
       <span>Size: <%- size %></span> | 
@@ -33,6 +33,7 @@
     <div class="preview">
       <img src="<%= dataURL %>" alt="Preview of <%- name %>">
     </div>
+    <div class="progress"></div>
   </script>
   <script src="js/vendor/lodash.min.js"></script>
   <script src="js/uploader.js"></script>

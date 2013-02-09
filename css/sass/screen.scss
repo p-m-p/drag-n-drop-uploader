@@ -8,17 +8,26 @@ article {
   height: 400px;
   overflow: auto;
   border: solid 1px silver;
+  list-style: none;
+  margin: 20px 0 0;
+  padding: 0;
 
   li {
     border-bottom: solid 1px silver; 
     position: relative;
     padding: 10px;
+    margin: 0;
     min-height: 40px;
   }
 }
 
 .details {
   margin-left: 60px;
+
+  h3 {
+    margin: 0 0 .2em;
+    font-size: 1.2em;
+  }
 }
 
 .preview {
@@ -29,5 +38,25 @@ article {
   img {
     width: 40px;
     height: 40px;
+  }
+}
+
+.progress {
+  width: 0;
+  z-index: -1;
+  height: 40px;
+  background-color: #CCFFF9;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-transition: width 0.5s ease-out;
+  -moz-transition: width 0.5s ease-out;
+  -o-transition: width 0.5s ease-out;
+  transition: width 0.5s ease-out;
+}
+
+.complete {
+  .progress {
+    background-color: green;
   }
 }

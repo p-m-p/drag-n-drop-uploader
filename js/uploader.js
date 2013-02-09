@@ -4,7 +4,8 @@
       template: _.template(document.getElementById('upload-tmpl').innerHTML)
     , fileList: document.getElementById('file-uploads')
     , queue: []
-    , activeUploads: 0
+    , activeUploads: [] 
+    , uploadCount: 0
   };
 
   // Setup event listeners
@@ -20,14 +21,21 @@
 
   // Remove an upload from the list
   up.removeUpload = function (ev) {
-    var li;
+    var li, activeUpload;
 
     // Check if the event was triggered by clicking the remove button
     if (ev.target.classList.contains('remove')) {
       // Fetch the list item for which the remove button was clicked
       li = ev.target.parentNode.parentNode;
-      // TODO check if li has active upload and abort
       up.fileList.removeChild(li);
+      activeUpload = up.removeActiveUploadById(li.dataset.uploadId);
+
+      // Abort the active upload
+      if (activeUpload && activeUpload._xhr) {
+        activeUpload._xhr.abort();
+        up.nextUpload();
+      }
+
       ev.preventDefault();
     }
   },
@@ -49,18 +57,21 @@
 
     _.each(fileList, function (file) {
       var url = window.URL.createObjectURL(file)
-        , li = document.createElement('li');
+        , li = document.createElement('li')
+        , uploadId = (up.uploadCount += 1);
 
       li.innerHTML = up.template({
           name: file.name
         , size: file.size
         , dataURL: url
       });
+      li.dataset.uploadId = uploadId;
       frag.appendChild(li);
       window.URL.revokeObjectURL(url);
 
       up.queueUpload({
-          file: file
+          id: uploadId
+        , file: file
         , listItem: li
       });
     });
@@ -69,8 +80,8 @@
   };
 
   up.queueUpload = function (upload) {
-    if (up.activeUploads < 5) {
-      up.activeUploads += 1;
+    if (up.activeUploads.length < 1) {
+      up.activeUploads.push(upload);
       up.startUpload(upload);
     }
     else {
@@ -81,6 +92,7 @@
   up.startUpload = function (upload) {
     var xhr = new XMLHttpRequest;
 
+    upload._xhr = xhr;
     xhr._file_upload = xhr.upload._file_upload = upload;
     xhr.open('POST', 'upload.php', true);
     xhr.onload = up.uploadComplete;
@@ -99,9 +111,8 @@
       li.querySelector('.progress').style.width = '100%';
       // Add complete class
       li.classList.add('complete');
-      up.clearUpload(this);
-      up.activeUploads -= 1;
 
+      up.clearUpload(this);
       up.nextUpload();
     }
   };
@@ -126,6 +137,7 @@
     var next = up.queue.pop();
 
     if (next) {
+      up.activeUploads.push(next);
       up.startUpload(next);
     }
   }
@@ -135,8 +147,29 @@
     ev.preventDefault();
   };
 
-  // Remove references to DOM node and File
+  up.removeActiveUploadById = function (uploadId) {
+    var activeUpload;
+
+    _.each(up.activeUploads, function (upload) {
+      if (upload.id === +uploadId) {
+        activeUpload = upload;
+        up.activeUploads.splice(up.activeUploads.indexOf(upload), 1);
+        return false;
+      }
+    });
+
+    return activeUpload;
+  };
+
+  // Remove the active upload and kills any references
   up.clearUpload = function (xhr) {
+    var upload = xhr._file_upload;
+
+    if (upload) {
+      up.activeUploads.splice(up.activeUploads.indexOf(upload), 1);
+      delete upload.xhr;
+    }
+
     delete xhr._file_upload;
     delete xhr.upload._file_upload;
   };

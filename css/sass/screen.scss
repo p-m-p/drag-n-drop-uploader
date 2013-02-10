@@ -44,11 +44,11 @@ article {
 .progress {
   width: 0;
   z-index: -1;
-  height: 40px;
   background-color: #CCFFF9;
   position: absolute;
   top: 0;
   left: 0;
+  bottom: 0;
   -webkit-transition: width 0.5s ease-out;
   -moz-transition: width 0.5s ease-out;
   -o-transition: width 0.5s ease-out;

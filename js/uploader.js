@@ -146,6 +146,7 @@
     xhr._file_upload = xhr.upload._file_upload = upload;
     // Open the request and set the event listeners
     xhr.open('POST', 'upload.php', true);
+    xhr.setRequestHeader('X-FILE-NAME', upload.file.name);
     xhr.onload = up.uploadComplete;
     xhr.onerror = up.uploadError;
     xhr.upload.onprogress = up.updateProgressIndicator;

@@ -159,6 +159,12 @@
   up.uploadComplete = function () {
     var li, nextUpload;
 
+    // Request did not return with a 200
+    if (this.status >= 400) {
+      up.uploadError.call(this);
+      return;
+    }
+
     // Ensure that the file upload object set on the Ajax request referenced
     // using the this keyword exists
     if (this._file_upload) {

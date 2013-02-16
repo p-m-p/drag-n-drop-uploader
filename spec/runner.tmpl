@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Jasmine Spec Runner</title>
+</head>
+<body>
+  <input type="file" name="file-picker" multiple>
+
+  <ul id="file-uploads">
+    <!-- Uploads are added dynamically --> 
+  </ul>
+
+  <script type="text/template" id="upload-tmpl">
+    <div class="details">
+      <h3>{{- name }}</h3>
+      <a href="#" class="remove">x</a>
+    </div>
+    <div class="preview">
+      <img src="{{= dataURL }}" alt="Preview of {{- name }}">
+    </div>
+    <div class="progress"></div>
+  </script>
+
+  <% with (scripts) { %>
+    <% [].concat(jasmine, vendor, helpers, src, specs, reporters, start).forEach(function(script){ %>
+    <script src="<%= script %>"></script>
+    <% }) %>
+  <% }; %>
+</body>
+</html>

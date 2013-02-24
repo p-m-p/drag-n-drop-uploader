@@ -6,7 +6,7 @@ class FileUploader {
 
   # Set the upload directory
   public function __construct ($upload_to) {
-    $this->_upload_dir = $upload_to;
+    $this->_upload_dir = preg_replace('%/\s*%', '', $upload_to);
   }
 
   # Read the file content and save it to the supplied file name in the upload

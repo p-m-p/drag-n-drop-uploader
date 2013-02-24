@@ -101,9 +101,8 @@
       });
       // Give the upload an id incase it needs to be fetched for cancellation
       li.dataset.uploadId = uploadId;
-      // Add the list item to the fragment and revoke the data URI
+      // Add the list item to the fragment
       frag.appendChild(li);
-      window.URL.revokeObjectURL(url);
 
       // Create an object with all of the upload details and send it to queued
       // for uploading
